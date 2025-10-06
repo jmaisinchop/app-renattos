@@ -1,0 +1,173 @@
+/* src/index.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* --- ESTILOS ESPECÍFICOS PARA IMPRESIÓN TÉRMICA --- */
+@media print {
+  /* 1. Ocultar todo por defecto */
+  body * {
+    visibility: hidden !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important; /* Quitar todos los bordes por defecto */
+    box-shadow: none !important;
+    color: black !important; /* Texto negro por defecto */
+    background-color: white !important; /* Fondo blanco por defecto */
+  }
+
+  /* 2. Hacer visible solo el comprobante y sus hijos */
+  .printable-receipt,
+  .printable-receipt * {
+    visibility: visible !important;
+  }
+
+  /* 3. Configuración de la "página" para la impresora térmica */
+  @page {
+    size: 80mm auto; /* Ancho típico de rollo térmico, altura automática */
+    /* O usa 58mm auto si es el caso */
+    margin: 2mm 2mm 2mm 2mm; /* Márgenes pequeños (arriba, derecha, abajo, izquierda) */
+  }
+
+  .printable-receipt {
+    font-family: 'Lucida Console', Monaco, monospace; /* Fuente monoespaciada o sans-serif clara */
+    font-size: 8pt; /* Tamaño base pequeño para térmicas */
+    line-height: 1.3; /* Interlineado ajustado */
+    width: 100% !important; /* El @page size controla el ancho real */
+    position: static !important; /* No necesita ser absoluto si todo lo demás está oculto */
+    overflow: visible !important; 
+    max-height: none !important;
+    padding: 0 !important; /* Los márgenes de @page controlan esto */
+  }
+
+  /* 4. Ocultar elementos no deseados del modal */
+  .hide-on-print {
+    display: none !important;
+  }
+
+  /* 5. Estilos específicos para elementos del comprobante */
+  .printable-receipt .receipt-header {
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+    border-bottom: 1px dashed #555 !important; /* Separador */
+  }
+  .printable-receipt .receipt-header h2 {
+    font-size: 11pt;
+    font-weight: bold;
+    margin: 0 0 2px 0;
+    text-transform: uppercase;
+  }
+  .printable-receipt .receipt-header p {
+    font-size: 7pt;
+    line-height: 1.2;
+    margin: 0;
+  }
+
+  .printable-receipt .receipt-separator {
+    font-size: 8pt;
+    text-align: center;
+    margin: 3px 0;
+    color: #333 !important;
+    /* Para que las líneas de guiones se impriman bien */
+    letter-spacing: -1px; /* O ajusta según tu impresora */
+    overflow: hidden; /* Evita que los guiones largos causen scroll */
+    white-space: nowrap;
+  }
+
+
+  .printable-receipt .receipt-details {
+    margin: 5px 0;
+  }
+  .printable-receipt .receipt-details p,
+  .printable-receipt .receipt-details div {
+    margin-bottom: 1px;
+  }
+  .printable-receipt .receipt-details .font-semibold {
+    font-weight: bold;
+  }
+
+  .printable-receipt .receipt-items table,
+  .printable-receipt .receipt-payment-plan table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    margin-top: 3px;
+    margin-bottom: 3px;
+  }
+  .printable-receipt .receipt-items th, .printable-receipt .receipt-items td,
+  .printable-receipt .receipt-payment-plan th, .printable-receipt .receipt-payment-plan td {
+    padding: 2px 1px !important; /* Padding muy reducido */
+    border: none !important; /* Sin bordes en celdas para look térmico limpio */
+    vertical-align: top;
+  }
+  .printable-receipt .receipt-items thead th,
+  .printable-receipt .receipt-payment-plan thead th {
+    border-bottom: 1px solid #555 !important; /* Línea bajo encabezados de tabla */
+    font-weight: bold;
+    text-align: left;
+  }
+  .printable-receipt .receipt-items .item-price-line td {
+      padding-top: 0px !important; /* Quitar padding superior de la línea de precio */
+      padding-bottom: 3px !important;
+      border-bottom: 1px dotted #ccc !important; /* Separador sutil entre items */
+  }
+  .printable-receipt .receipt-items tr:last-child .item-price-line td {
+      border-bottom: none !important; /* Sin borde en el último item */
+  }
+
+
+  .printable-receipt .receipt-items .text-right,
+  .printable-receipt .receipt-payment-plan .text-right,
+  .printable-receipt .receipt-totals .text-right {
+    text-align: right !important;
+  }
+  .printable-receipt .receipt-items .text-center,
+  .printable-receipt .receipt-payment-plan .text-center {
+    text-align: center !important;
+  }
+  
+  .printable-receipt .receipt-totals {
+    margin-top: 5px;
+    padding-top: 5px;
+    border-top: 1px dashed #555 !important;
+  }
+  .printable-receipt .receipt-totals .font-bold {
+    font-weight: bold;
+  }
+  .printable-receipt .receipt-totals .text-sm { font-size: 8pt;}
+  .printable-receipt .receipt-totals .text-md { font-size: 10pt;}
+  .printable-receipt .receipt-totals .text-secondary { color: black !important; } /* Forzar totales a negro */
+
+
+  .printable-receipt .receipt-payment-plan h4 {
+    font-size: 8pt;
+    font-weight: bold;
+    margin-top: 5px;
+    margin-bottom: 2px;
+  }
+   .printable-receipt .receipt-payment-plan .font-semibold {
+      font-weight: bold;
+   }
+
+  .printable-receipt .receipt-footer {
+    margin-top: 5px;
+    padding-top: 5px;
+    border-top: 1px dashed #555 !important;
+  }
+  .printable-receipt .receipt-footer p {
+    margin: 1px 0;
+    font-size: 7pt;
+  }
+
+  /* Forzar que los colores de fondo de Tailwind no se apliquen */
+  .printable-receipt .bg-neutral-100,
+  .printable-receipt .dark\:bg-primary-light\/10,
+  .printable-receipt .dark\:bg-primary-light\/5 {
+    background-color: transparent !important;
+  }
+
+  html {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+}
