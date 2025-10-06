@@ -5,7 +5,7 @@ import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore"; 
 
 /*const firebaseConfig = {
-  apiKey: "AIzaSyBThiMlwVZ8w8AaA7dZzBaMaawygy9vHbk",
+
   authDomain: "renattos-prod.firebaseapp.com",
   projectId: "renattos-prod",
   storageBucket: "renattos-prod.firebasestorage.app",
@@ -15,7 +15,7 @@ import { getFirestore } from "firebase/firestore";
 };*/
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAhszf3ksVKyZGL2omtZsKLx_QaM6mlF48",
+
   authDomain: "renattos-almacenes.firebaseapp.com",
   projectId: "renattos-almacenes",
   storageBucket: "renattos-almacenes.firebasestorage.app",
